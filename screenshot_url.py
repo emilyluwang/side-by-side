@@ -17,7 +17,7 @@ status, response = http.request(host_url)
 # extracts links from href tags
 # then runs a commnand line process to screenshot all links
 for link in BeautifulSoup(response, parse_only=SoupStrainer('a')):
-    if link.has_attr('href'):
+    if link.has_key('href'):
         text_of_link = link['href']
         
         # if a link to an external website
