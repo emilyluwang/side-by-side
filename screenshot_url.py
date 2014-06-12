@@ -1,6 +1,6 @@
 import os
-import hashlib
 import httplib2
+import hashlib
 from PIL import Image, ImageChops
 from bs4 import BeautifulSoup, SoupStrainer
 
@@ -30,11 +30,14 @@ for link in BeautifulSoup(response, parse_only=SoupStrainer('a')):
             if '/' in link_name:
                 #remove the last backslash
                 link_name = link_name[::-1][1:][::-1]
-            os.system('webkit2png --clipwidth=' + str(WIDTH) + ' --clipheight= ' + str(HEIGHT) +' -D ~/Desktop/images_temp -o ' + link_name + ' ' + text_of_link)
+            #os.system('webkit2png --clipwidth=' + str(WIDTH) + ' --clipheight= ' + str(HEIGHT) +' -D ~/Desktop/images_temp -o ' + link_name + ' ' + text_of_link)
+            os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + link_name + ' ' + text_of_link)
 
             # now we need to calculate hash
             new_hash = hashlib.md5(text_of_link)
             hash_link = cache_url + new_hash.hexdigest() + '/'
             file_name = link_name + '_cache'
             os.system('webkit2png --clipwidth=' + str(WIDTH) + ' --clipheight=' + str(HEIGHT) + ' -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
+            os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
+
 

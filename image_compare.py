@@ -26,8 +26,8 @@ def get(file_name):
 	return (data - data.mean()) / data.std()
 
 
-im1 = get('../../../Desktop/images_temp/drupal.org-full')
-im2 = get('../../../Desktop/images_temp/drupal.org_cache-full')
+im1 = get('../../../Desktop/images_temp/www.ehow.com-clipped')
+im2 = get('../../../Desktop/images_temp/www.ehow.com_cache-clipped')
 
 print im1.shape
 print im2.shape
