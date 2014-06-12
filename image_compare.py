@@ -19,6 +19,7 @@ def get(file_name):
 	data.save(file_name + '.jpg')
 
 	data = imread(file_name + '.jpg')
+
 	# convert to grey-scale using W3C luminance calc
 	data = scipy.inner(data, [299, 587, 114]) / 1000.0
 
