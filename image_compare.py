@@ -1,6 +1,7 @@
 import scipy 
 from scipy.misc import imread
 from scipy.signal.signaltools import correlate2d as c2d
+import Image
 
 # now we obtain a difference image of the two screenshots
 #im1 = Image.open(str(img_filepath + link_name + '-clipped.png'))
@@ -11,26 +12,26 @@ from scipy.signal.signaltools import correlate2d as c2d
 # calculate the minimum bounding box to quantify the difference image
 #print diff.getbbox()
 
-def get(i):
+def get(file_name):
 	
 	# get JPG image as Scipy array, RGB (3 layer)
-	data = imread('im%s.jpg' % i)
+	data = Image.open(file_name + '.png')
+	data.save(file_name + '.jpg')
 
+	data = imread(file_name + '.jpg')
 	# convert to grey-scale using W3C luminance calc
-	data = sp.inner(data, [299, 587, 114]) / 1000.0
+	data = scipy.inner(data, [299, 587, 114]) / 1000.0
 
 	# normalize per http://en.wikipedia.org/wiki/Cross-correlation
 	return (data - data.mean()) / data.std()
 
 
-im1 = get(1)
-im2 = get(2)
+im1 = get('../../../Desktop/images_temp/drupal.org-full')
+im2 = get('../../../Desktop/images_temp/drupal.org_cache-full')
 
-im1.shape
-im2.shape
+print im1.shape
+print im2.shape
 
 c11 = c2d(im1, im1, mode='same') 
 c12 = c2d(im1, im2, mode='same')
-c13 = c2d(im1, im3, mode='same')
-c23 = c2d(im2, im3, mode='same')
-c11.max(), c12.max(), c13.max(), c23.max()
+print c11.max(), c12.max()
