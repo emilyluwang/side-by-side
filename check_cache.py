@@ -1,11 +1,9 @@
 import global_vars
 import image_compare
 import screenshot_url
-import os.path
 
-def generate_comparisons(trash):
+def generate_comparisons():
 
-	print()
 	print("getting links to cache...")
 	# get list of urls to cache on host page
 	links_to_cache = screenshot_url.get_urls(global_vars.host_url)
