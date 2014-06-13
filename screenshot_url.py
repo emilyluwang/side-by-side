@@ -25,15 +25,18 @@ def get_urls(url):
 
     return url_list
 
-def make_screenshots(list_of_urls):
-    for url in list_of_urls:
-
-        link_name = url[7:]
+def clean_url(url):
+    link_name = url[7:]
         #if there's an ending backslash
         
-        if '/' in link_name:
-            #remove the last backslash
-            link_name = link_name[::-1][1:][::-1]
+    if '/' in link_name:
+        #remove the last backslash
+        link_name = link_name[::-1][1:][::-1]
+    return link_name
+
+def make_screenshots(list_of_urls):
+    for url in list_of_urls:
+        link_name = clean_url(url)
 
         # take screenshot of original page
         os.system('webkit2png -C -D ~/Desktop/images_temp -o' + link_name + ' ' + url)

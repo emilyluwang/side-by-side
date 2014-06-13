@@ -7,3 +7,9 @@ cache_url = 'http://ec2-75-101-154-48.compute-1.amazonaws.com/CAYL/cache/'
 
 global img_filepath
 img_filepath = '../../../Desktop/images_temp/'
+
+global failed_pages
+failed_pages = '/files/failed_pages.txt'
+
+global comparison_results
+comparison_results = '/files/results.txt'
