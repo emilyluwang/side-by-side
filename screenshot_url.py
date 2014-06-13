@@ -48,3 +48,5 @@ def make_screenshots(list_of_urls):
 
         os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
 
+
+make_screenshots(get_urls(global_vars.host_url))
