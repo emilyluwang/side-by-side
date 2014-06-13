@@ -2,6 +2,7 @@ import scipy
 from scipy.misc import imread
 from scipy.signal.signaltools import correlate2d as c2d
 import Image
+import global_vars
 
 # now we obtain a difference image of the two screenshots
 #im1 = Image.open(str(img_filepath + link_name + '-clipped.png'))
@@ -26,13 +27,11 @@ def get(file_name):
 	# normalize per http://en.wikipedia.org/wiki/Cross-correlation
 	return (data - data.mean()) / data.std()
 
+def compare_images(file_name_1, file_name_2):
+	img1 = get(global_vars.img_filepath + file_name_1 + '-clipped')
+	img2 = get(global_vars.img_filepath + file_name_2 + '-clipped')
 
-im1 = get('../../../Desktop/images_temp/www.ehow.com-clipped')
-im2 = get('../../../Desktop/images_temp/www.ehow.com_cache-clipped')
-
-print im1.shape
-print im2.shape
-
-c11 = c2d(im1, im1, mode='same') 
-c12 = c2d(im1, im2, mode='same')
-print c11.max(), c12.max()
+	c11 = c2d(img1, img1, mode='same') 
+	c12 = c2d(img1, img2, mode='same')
+	
+	print c11.max(), c12.max()

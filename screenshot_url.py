@@ -1,44 +1,47 @@
 import os
 import httplib2
 import hashlib
+import global_vars
 from PIL import Image, ImageChops
 from bs4 import BeautifulSoup, SoupStrainer
 
-# the page containing all links to visit and screenshot
-host_url = 'http://ec2-75-101-154-48.compute-1.amazonaws.com/node/12'
-cache_url = 'http://ec2-75-101-154-48.compute-1.amazonaws.com/CAYL/cache/'
-img_filepath = '../../../Desktop/images_temp/'
+def get_urls(url):
 
-# getting the source code of the page at host_url
-http = httplib2.Http()
-status, response = http.request(host_url)
+    url_list = []
+    # getting the source code of the page at host_url
+    http = httplib2.Http()
+    status, response = http.request(url)
+    soup = BeautifulSoup(response, "lxml")
 
-soup = BeautifulSoup(response, "lxml")
-
-# filtering source code for only href tags
-# extracts links from href tags
-# then runs a commnand line process to screenshot all links
-for tag in soup.findAll('a', href = True):
-    text_of_link = str(tag.contents[0])
+    # filtering source code for only href tags
+    # extracts links from href tags
+    # then runs a commnand line process to screenshot all links
+    for tag in soup.findAll('a', href = True):
+        text_of_link = str(tag.contents[0])
         
-    # if a link to an external website
-    if 'http://' in text_of_link:
+        # if a link to an external website
+        if 'http://' in text_of_link:
+            url_list.append(text_of_link)
 
-        link_name = text_of_link[7:]
+    return url_list
+
+def make_screenshots(list_of_urls):
+    for url in list_of_urls:
+
+        link_name = url[7:]
+        #if there's an ending backslash
+        
         if '/' in link_name:
-    
             #remove the last backslash
             link_name = link_name[::-1][1:][::-1]
-    
-        #os.system('webkit2png --clipwidth=' + str(WIDTH) + ' --clipheight= ' + str(HEIGHT) +' -D ~/Desktop/images_temp -o ' + link_name + ' ' + text_of_link)
-        os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + link_name + ' ' + text_of_link)
 
-        # now we need to calculate hash
-        new_hash = hashlib.md5(text_of_link)
-        hash_link = cache_url + new_hash.hexdigest() + '/'
+        # take screenshot of original page
+        os.system('webkit2png -C -D ~/Desktop/images_temp -o' + link_name + ' ' + url)
+
+        # calculate hash
+        new_hash = hashlib.md5(url)
+        hash_link = global_vars.cache_url + new_hash.hexdigest() + '/'
         file_name = link_name + '_cache'
-    
-        #os.system('webkit2png --clipwidth=' + str(WIDTH) + ' --clipheight=' + str(HEIGHT) + ' -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
-        os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
 
+        os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
 
