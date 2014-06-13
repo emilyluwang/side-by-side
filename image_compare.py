@@ -38,17 +38,24 @@ def compare_images(file_name_1, file_name_2):
 		img1 = get(file_path_1)
 		f1_open = True
 	else:
-  		f = open(global_vars.failed_pages, 'w')
+  		f = open(global_vars.failed_pages, 'a')
   		f.write(file_name_1 + "\n")
   		f.close()
 
   	if os.path.isfile(file_path_2 + '.png'):
   		if f1_open == True:
   			img2 = get(file_path_2)
-  			c11 = c2d(img1, img1, mode='same') 
+  			#c11 = c2d(img1, img1, mode='same') 
 			c12 = c2d(img1, img2, mode='same')
-			print c11.max(), c12.max
+			diff = c12.max()
+			skew = c12.max()/30000.
+
+			# write results to results file
+			f = open(global_vars.comparison_results, 'a')
+			f.write(file_name_1 + ',' + file_name_2 + ',' + str(skew) + "\n")
+			f.close()
+
 	else:
-		f = open(global_vars.failed_pages, 'w')
+		f = open(global_vars.failed_pages, 'a')
 		f.write(file_name_2 + "\n")
 		f.close()

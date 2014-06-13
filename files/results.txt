@@ -1,0 +1,4 @@
+www.jabong.com,www.jabong.com_cache,0.755962105873
+www.getresponse.com,www.getresponse.com_cache,0.963090584085
+www.ebay.in,www.ebay.in_cache,0.156807422292
+www.ehow.com,www.ehow.com_cache,0.382639004138
