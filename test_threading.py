@@ -57,7 +57,7 @@ def process(items, start, end):
         except Exception:                                                       
             print('error with item')      
 
-def split_processing(items, num_splits=5):                                      
+def split_processing(items, num_splits=25):                                      
     split_size = len(items) // num_splits                                       
     threads = []                                                                
     for i in range(num_splits):                                                 

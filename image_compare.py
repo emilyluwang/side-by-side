@@ -4,6 +4,7 @@ from scipy.signal.signaltools import correlate2d as c2d
 import Image
 import global_vars
 import os.path
+import hashlib
 
 # now we obtain a difference image of the two screenshots
 #im1 = Image.open(str(img_filepath + link_name + '-clipped.png'))
@@ -28,9 +29,12 @@ def get(file_name):
 	# normalize per http://en.wikipedia.org/wiki/Cross-correlation
 	return (data - data.mean()) / data.std()
 
-def compare_images(file_name_1, file_name_2):
+def compare_images(orig_url, file_name_1, file_name_2):
 	file_path_1 = global_vars.img_filepath + file_name_1 + '-clipped'
 	file_path_2 = global_vars.img_filepath + file_name_2 + '-clipped' 
+	
+	hash_of_url = hashlib.md5(orig_url)
+	hash_link = global_vars.cache_url + hash_of_url.hexdigest() + '/'
 
 	f1_open = False
 
@@ -52,7 +56,7 @@ def compare_images(file_name_1, file_name_2):
 
 			# write results to results file
 			f = open(global_vars.comparison_results, 'a')
-			f.write(file_name_1 + ',' + file_name_2 + ',' + str(skew) + "\n")
+			f.write(file_name_1 + ',' + file_name_2 + ',' + orig_url + ',' + hash_link + ',' + str(skew) + "\n")
 			f.close()
 
 	else:
