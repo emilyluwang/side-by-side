@@ -27,11 +27,14 @@ def get_urls(url):
 
 def clean_url(url):
     link_name = url[7:]
-        #if there's an ending backslash
-        
+    
+    # if there's an ending backslash    
     if '/' in link_name:
-        #remove the last backslash
-        link_name = link_name[::-1][1:][::-1]
+        # remove the last backslash
+        # link_name = link_name[::-1][1:][::-1]
+        sep = '/'
+        rest = link_name.split(sep, 1)[0]
+        return rest
     return link_name
 
 def make_screenshots(list_of_urls):
@@ -39,13 +42,16 @@ def make_screenshots(list_of_urls):
         link_name = clean_url(url)
 
         # take screenshot of original page
-        os.system('webkit2png -C -D ~/Desktop/images_temp -o' + link_name + ' ' + url)
+        print link_name
+        print url
+        os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + link_name + ' ' + url)
 
         # calculate hash
         new_hash = hashlib.md5(url)
         hash_link = global_vars.cache_url + new_hash.hexdigest() + '/'
         file_name = link_name + '_cache'
 
+        print hash_link
         os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
 
 

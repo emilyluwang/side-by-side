@@ -1,6 +1,7 @@
 import global_vars
 import image_compare
 import screenshot_url
+import os
 
 def generate_comparisons():
 	# empty text files
@@ -14,11 +15,12 @@ def generate_comparisons():
 	links_to_cache = screenshot_url.get_urls(global_vars.host_url)
 
 	# screenshot these urls
-	#screenshot_url.make_screenshots(links_to_cache)
+	screenshot_url.make_screenshots(links_to_cache)
 
 	# run image comparison on original url screenshot and cached url screenshot
 	for link in links_to_cache:
 		new_link = screenshot_url.clean_url(link)
 		image_compare.compare_images(link, new_link, new_link + '_cache')
+
 
 generate_comparisons()
