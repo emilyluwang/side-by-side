@@ -45,10 +45,11 @@ def compare_images(orig_url, file_name_1, file_name_2):
 			diff = c12.max()
 			skew = c12.max()/30000.
 
-			# write results to results file
-			f = open(global_vars.comparison_results, 'a')
-			f.write(file_name_1 + ',' + file_name_2 + ',' + orig_url + ',' + hash_link + ',' + str(skew) + "\n")
-			f.close()
+			if skew < global_vars.quality_threshold:
+				# write results to results file
+				f = open(global_vars.comparison_results, 'a')
+				f.write(file_name_1 + ',' + file_name_2 + ',' + orig_url + ',' + hash_link + ',' + str(skew) + "\n")
+				f.close()
 
 	else:
 		f = open(global_vars.failed_pages, 'a')

@@ -42,8 +42,6 @@ def make_screenshots(list_of_urls):
         link_name = clean_url(url)
 
         # take screenshot of original page
-        print link_name
-        print url
         os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + link_name + ' ' + url)
 
         # calculate hash
@@ -51,7 +49,6 @@ def make_screenshots(list_of_urls):
         hash_link = global_vars.cache_url + new_hash.hexdigest() + '/'
         file_name = link_name + '_cache'
 
-        print hash_link
         os.system('webkit2png -C -D ~/Desktop/images_temp -o ' + file_name + ' ' + hash_link)
 
 
