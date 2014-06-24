@@ -18,7 +18,7 @@ def get_urls(url):
     # then runs a commnand line process to screenshot all links
     for tag in soup.findAll('a', href = True):
         text_of_link = str(tag['href'])
-        
+
         # if a link to an external website
         if 'http://' in text_of_link:
             url_list.append(text_of_link)
