@@ -1,7 +1,6 @@
 import global_vars
 import image_compare
 import screenshot_url
-import os
 
 def generate_comparisons():
 	# empty text files

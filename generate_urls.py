@@ -7,11 +7,11 @@ from bs4 import BeautifulSoup, SoupStrainer
 
 orig_url = 'http://www.balatarin.com/links/popular/recent/all/'
 
-def get_balatarin_urls(url, int_range):
+def get_balatarin_urls(url, lower_bound, upper_bound):
 
     url_list = []
 
-    for i in range(1, int_range):
+    for i in range(lower_bound, upper_bound):
 
     	# getting the source code of the page at host_url
     	http = httplib2.Http()
@@ -27,5 +27,5 @@ def get_balatarin_urls(url, int_range):
 
     return url_list
 
-for url in get_balatarin_urls(orig_url, 10):
+for url in get_balatarin_urls(orig_url, 1, 5):
 	print url

@@ -1,6 +1,6 @@
 # change host url if you want to crawl a new page
 global host_url
-host_url = 'http://ec2-54-91-165-77.compute-1.amazonaws.com/node/7#'
+host_url = 'http://ec2-54-91-165-77.compute-1.amazonaws.com/node/7'
 
 global cache_url
 cache_url = 'http://ec2-54-91-165-77.compute-1.amazonaws.com/CAYL/cache/'

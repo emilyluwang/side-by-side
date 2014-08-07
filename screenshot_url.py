@@ -30,8 +30,9 @@ def clean_url(url):
     
     # if there's an ending backslash    
     if '/' in link_name:
-        # remove the last backslash
-        # link_name = link_name[::-1][1:][::-1]
+        
+        # remove any backslashes or material after backslash
+        # screenshot tool can't screenshot images with backslashes in their name
         sep = '/'
         rest = link_name.split(sep, 1)[0]
         return rest

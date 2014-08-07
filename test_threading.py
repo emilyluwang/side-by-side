@@ -32,7 +32,9 @@ def clean_url(url):
         
     if '/' in link_name:
         #remove the last backslash
-        link_name = link_name[::-1][1:][::-1]
+        sep = '/'
+        rest = link_name.split(sep, 1)[0]
+        return rest
     return link_name
 
 def make_screenshots(url):
